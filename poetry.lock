@@ -1903,6 +1903,17 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "wave"
+version = "0.0.2"
+description = "Whole Architecture Verification"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Wave-0.0.2.tar.gz", hash = "sha256:5a895bb85e04e38c82dba90d66a5ae8f488b50c58f3fc4df868a5bcdcabb8632"},
+    {file = "Wave-0.0.2.zip", hash = "sha256:5187f49497287d218cc83d4cd1e5299dc31485ab3ed32abbaa9e95d8f73c4095"},
+]
+
+[[package]]
 name = "wavfile"
 version = "4.7.2"
 description = "Read/write wave audio files to/from lists of native Python types."
@@ -1946,4 +1957,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "6f704ee4cd2fe0325d8d5d4ab809767a86b5753a62960ca9d08ea5f53d4092e5"
+content-hash = "3941049c2b337676124bbbe94b18bbb72d502b98791114faa8048fe8eafe1366"
