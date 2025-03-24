@@ -1,3 +1,4 @@
 audio_files/
 mydask.png
 data/
+*__pycache__/

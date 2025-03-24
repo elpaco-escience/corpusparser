@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ffmpeg-test"
+name = "corpusparser"
 version = "0.1.0"
 description = ""
 authors = ["Pablo Rodríguez Sánchez <pablo.rodriguez.sanchez@gmail.com>"]
@@ -19,6 +19,7 @@ graphviz = "^0.20.3"
 jinja2 = "^3.1.4"
 scikit-talk = "^0.1.1"
 wave = "^0.0.2"
+pytest = "^8.3.5"
 
 
 [build-system]
