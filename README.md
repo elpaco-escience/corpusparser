@@ -6,6 +6,15 @@ This Python package collects all we learned from [the prototype](https://github.
 
 # Tutorial
 
+## TL;DR
+Add `rate` and `audio` columns to your dataframe by using:
+
+```python
+from corpusparser.parsers import extend_dataframe
+df = extend_dataframe(df)
+```
+
+## Details
 The heaviest task we want to perform on the input data frame consists on appending audio snippets.
 This involves opening a `.wav` file for each row.
 
