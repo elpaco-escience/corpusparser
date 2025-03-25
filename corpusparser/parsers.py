@@ -2,6 +2,19 @@ import librosa
 from math import floor, ceil
 from corpusparser.auxs import filename_from_key
 
+def extend_dataframe(df):
+    """ Extends our dataframe with:
+    - sample rate
+    - the audio snippet 
+    """
+    snippets = subset_all_audios(df)
+    df.insert(len(df.columns), "audio", snippets)
+
+    rates = samplerate_from_keys(df["key"])
+    df.insert(len(df.columns), "rate", rates)
+
+    return df
+
 def audio_from_key(key, sr = None, **kwargs):
     """ Equivalent to librosa.core.load, but works with keys instead of with filenames """
     audio, rate = librosa.core.load(filename_from_key(key), sr=sr, **kwargs) # sr=None uses the native sampling rate
@@ -70,9 +83,33 @@ def subset_audio_from_key(df, key, row=0, start_time = None, end_time = None):
 
     return subset_audio(audio, start_time, end_time, sr)
 
-# Some handy list comprehensions
-def audio_from_keys(keys, **kwargs):
-    return [audio_from_key(key, **kwargs) for key in keys]
+def subset_all_audios(df):
+    """Extracts all the audio snippets
 
+    Args:
+        df (pd.Dataframe): our data frame
+
+    Returns:
+        np.array: A list with the audio clippings
+    """
+    size = len(df)
+    snippets = size * [None] # Pre-allocate an empty list
+
+    counter = 0
+    keys = df['key'].unique()
+    for key in keys: #TODO: consider a try/catch structure to avoid stopping in case one audio fails
+        # Open the audio file only once per file (as opposed to once per row)
+        audio = audio_from_key(key)
+        rate = samplerate_from_key(key)
+
+        # Extract and append the relevant audio snippet
+        aux = df[df['key'] == key]
+        for i, row in aux.iterrows():
+            snippets[counter] = subset_audio(audio, row['start_time'], row['end_time'], rate)
+            counter += 1
+    
+    return snippets
+
+# Some handy list comprehensions
 def samplerate_from_keys(keys, **kwargs):
     return [samplerate_from_key(key, **kwargs) for key in keys]
