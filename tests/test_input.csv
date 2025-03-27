@@ -11,6 +11,7 @@ start_time,end_time,participant,utterance,key,language,uid
 417.9,418.31,tx@5,yeah,/arapaho1/25b,arapaho,arapaho-22-206-417900
 318.486,318.89,f02lp,sí,/catalan1/ca_f02a_m05a_und,catalan,catalan-08-222-318486
 84.358,84.54599999999999,m05lp,sí,/catalan1/ca_f02a_m05a_und,catalan,catalan-08-061-84358
+84.358,84.54599999999999,missing_file,no,/catalan1/ca_missing,catalan,catalan-00-000-00000
 445.98,446.3,B,mhm,/german1/6297,german,german-095-071-445980
 473.03,473.3,B,ja,/german1/6297,german,german-095-085-473030
 86.188,86.442,f48ln,sí?,/catalan1/ca_m47s_f48s_und,catalan,catalan-36-034-86188

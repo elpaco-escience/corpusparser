@@ -1,6 +1,7 @@
 import librosa
 from math import floor, ceil
 from corpusparser.auxs import filename_from_key
+import warnings
 
 def extend_dataframe(df):
     """ Extends our dataframe with:
@@ -17,13 +18,22 @@ def extend_dataframe(df):
 
 def audio_from_key(key, sr = None, **kwargs):
     """ Equivalent to librosa.core.load, but works with keys instead of with filenames """
-    audio, rate = librosa.core.load(filename_from_key(key), sr=sr, **kwargs) # sr=None uses the native sampling rate
-    audio = audio.astype('float32')
+    try: # This try/catch structure allows the workflow to continue when batch-processing files
+        audio, rate = librosa.core.load(filename_from_key(key), sr=sr, **kwargs) # sr=None uses the native sampling rate
+        audio = audio.astype('float32')
+    except:
+        warnings.warn(f"Something went wrong with key: {key}")
+        audio = [None]
     return audio # We'll ignore the rate in this function output
 
 def samplerate_from_key(key, **kwargs):
     """ Equivalent to librosa.get_samplerate, but works with keys instead of with filenames """
-    return librosa.get_samplerate(filename_from_key(key), **kwargs)
+    try: # This try/catch structure allows the workflow to continue when batch-processing files
+        sr = librosa.get_samplerate(filename_from_key(key), **kwargs)
+    except:
+        warnings.warn(f"Something went wrong with key: {key}")
+        sr = 0
+    return sr
 
 def subset_audio(audio, start_time, end_time, rate):
     """
@@ -97,7 +107,7 @@ def subset_all_audios(df):
 
     counter = 0
     keys = df['key'].unique()
-    for key in keys: #TODO: consider a try/catch structure to avoid stopping in case one audio fails
+    for key in keys:
         # Open the audio file only once per file (as opposed to once per row)
         audio = audio_from_key(key)
         rate = samplerate_from_key(key)
