@@ -12,6 +12,9 @@ def test_samplerate_from_key():
     rate = samplerate_from_key("/public-spanish/spanish-02")
     assert(rate == 16000)
 
+    rate = samplerate_from_key("missing_file")
+    assert(rate == 0)
+
 def test_audio_from_key():
     ## These tests have been built by manually listening to the audio
     ## and ensuring the audio snippet is correct.
@@ -30,10 +33,13 @@ def test_audio_from_key():
     checksum = np.sum(audio)
     assert(checksum == np.float32(0.004272461))
 
+    audio = audio_from_key("missing_file")
+    assert(audio == [None])
+
 def test_extend_dataframe():
     df = read_csv("tests/test_public.csv")
     df = extend_dataframe(df)
 
-    assert(list(df["key"]) == ["/public-dutch/dutch-01", "/public-spanish/spanish-01", "/public-spanish/spanish-02"])
-    assert(list(df["rate"]) == [24000, 16000, 16000])
+    assert(list(df["key"]) == ["/public-dutch/dutch-01", "/public-spanish/spanish-01", "/public-spanish/spanish-02", "/missing_file"])
+    assert(list(df["rate"]) == [24000, 16000, 16000, 0])
 
