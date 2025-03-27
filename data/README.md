@@ -1,3 +1,5 @@
+## How to use me
+
 Put your audio files here. The expected folder structure goes like this:
 
 ```sh
@@ -9,3 +11,6 @@ Put your audio files here. The expected folder structure goes like this:
 │   ├── el_f01.wav
 ...
 ```
+
+## Credits
+Example audio files by Pablo Rodríguez.
