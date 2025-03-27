@@ -23,6 +23,9 @@ pytest = "^8.3.5"
 pytest-cov = "^6.0.0"
 
 
+[tool.poetry.group.dev.dependencies]
+nbconvert = "^7.16.6"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
