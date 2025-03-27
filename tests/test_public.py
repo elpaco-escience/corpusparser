@@ -40,6 +40,9 @@ def test_extend_dataframe():
     df = read_csv("tests/test_public.csv")
     df = extend_dataframe(df)
 
-    assert(list(df["key"]) == ["/public-dutch/dutch-01", "/public-spanish/spanish-01", "/public-spanish/spanish-02", "/missing_file"])
-    assert(list(df["rate"]) == [24000, 16000, 16000, 0])
+    assert(list(df["key"]) == ["/public-dutch/dutch-01", "/public-spanish/spanish-01", "/public-spanish/spanish-02", "/missing_file", "/public-spanish/spanish-02"])
+    assert(list(df["rate"]) == [24000, 16000, 16000, 0, 16000])
+    
+    ## Check that audio is present if available
+    assert([len(df["audio"][i]) for i in range(len(df))] == [21600, 20800, 16000, 0, 0])
 

@@ -51,10 +51,11 @@ def subset_audio(audio, start_time, end_time, rate):
     start_i = floor(start_time * rate)
     end_i = ceil(end_time * rate)
 
-    if start_i < 0 or end_i > len(audio):
-        raise Exception("Subset out of bounds!")
-        
-    return audio[start_i : end_i]
+    try:
+        return audio[start_i : end_i]
+    except:
+        return [None]
+
 
 def subset_audio_from_key(df, key, row=0, start_time = None, end_time = None):
     """
